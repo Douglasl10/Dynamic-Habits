@@ -111,8 +111,9 @@ function AppContext({user}) {
       </main>
     </div>
   )
+}
 
-  export default function App() {
+export default function App() {
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
 
@@ -140,4 +141,3 @@ function AppContext({user}) {
       </AppProvider>
     )
   }
-}
