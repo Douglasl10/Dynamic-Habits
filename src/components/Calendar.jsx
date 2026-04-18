@@ -1,11 +1,12 @@
-import { useStore } from "../store/useStore"
+
+import { useApp } from "../context/AppContext"
 import { DAYS_PT, MONTHS_PT, TOPICS } from "../data/topics"
 import { useState } from "react"
 
 const todayStr = new Date().toISOString().split('T')[0]
 
 export default function Calendar() {
-    const {habits, activeTopic} = useStore()
+    const {habits, activeTopic} = useApp()
     const [calDate, setCalDate] = useState(new Date())
     const tc = TOPICS.find(t => t.id === activeTopic)?.color
     const topicHabits = habits.filter(h => h.topic === activeTopic)

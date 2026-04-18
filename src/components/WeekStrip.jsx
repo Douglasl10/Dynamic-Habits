@@ -1,4 +1,5 @@
-import { useStore } from "../store/useStore"
+
+import { useApp } from "../context/AppContext"
 import { DAYS_PT, TOPICS } from "../data/topics"
 
 const today = new Date()
@@ -17,7 +18,7 @@ function getWeekDates() {
 }
 
 export default function WeekStrip() {
-    const {habits, activeTopic} = useStore()
+    const {habits, activeTopic} = useApp()
     const tc = TOPICS.find(t => t.id === activeTopic)?.color
     const topicHabits = habits.filter(h => h.topic === activeTopic) 
     const weekDates = getWeekDates()

@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useStore } from "../store/useStore";
 import { TOPICS } from "../data/topics";
 import NoteCard from "./NoteCard";
+import { useApp } from "../context/AppContext";
 
 export default function Notes() {
-    const {notes, activeTopic, addNote} = useStore()
+    const {notes, activeTopic, addNote} = useApp()
     const [text, setText] = useState('')
     const [showForm, setShowForm] = useState(false)
     const tc = TOPICS.find(t => t.id === activeTopic)?.color

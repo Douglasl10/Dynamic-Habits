@@ -1,8 +1,9 @@
-import { useStore } from "../store/useStore"
+
+import { useApp } from "../context/AppContext";
 import { TOPICS } from "../data/topics";
 
 export default function NoteCard({note}) {
-    const {removeNote, activeTopic} = useStore()
+    const {removeNote, activeTopic} = useApp()
     const tc = TOPICS.find(t => t.id === activeTopic)?.color
     const todayStr = new Date().toISOString().split('T')[0]
 

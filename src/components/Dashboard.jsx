@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { useStore } from "../store/useStore"
 import { TOPICS } from "../data/topics";
 import { useNavigate } from "react-router-dom";
 import WeekStrip from "../components/WeekStrip";
 import ProgressBar from "./ProgressBar";
 import HabitCard from "./HabitCard";
+import { useApp } from "../context/AppContext";
 
 export default function Dashboard() {
-    const {habits, notes, activeTopic, addHabit} = useStore()
+    const {habits, notes, activeTopic, addHabit} = useApp()
     const [newHabit, setNewHabit] = useState('')
     const [showForm, setShowForm] = useState(false)
     const topic = TOPICS.find(t => t.id === activeTopic)

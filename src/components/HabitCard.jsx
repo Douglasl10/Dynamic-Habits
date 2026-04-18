@@ -1,19 +1,17 @@
 import { useState } from "react"
-import { useStore } from "../store/useStore"
 import { TOPICS } from "../data/topics"
-
-const todayStr = new Date().toISOString().split('T')[0]
+import { useApp } from "../context/AppContext"
 
 export default function HabitCard({habit}) {
-    const { toggleHabits, removeHabits, activeTopic } = useStore()
+    const { toggleHabits, removeHabits, activeTopic, isCompleted } = useApp()
     const [popping, setPopping] = useState(false)
     const tc = TOPICS.find(t  => t.id === activeTopic)?.color
-    const done = habit.completedDates.includes(todayStr)
+    const done = isCompleted(habit.id)
 
     const handleToggle = () => {
         setPopping(true)
         setTimeout(() => setPopping(false), false)
-        toggleHabits(habit.id)
+        toggleHabits(habit)
     }
 
     return (

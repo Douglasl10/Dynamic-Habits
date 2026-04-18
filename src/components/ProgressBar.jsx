@@ -1,10 +1,11 @@
-import { useStore } from "../store/useStore"
+
+import { useApp } from "../context/AppContext"
 import { TOPICS } from "../data/topics"
 
 const todayStr = new Date().toISOString().split('T')[0]
 
 export default function ProgressBar() {
-    const {habits, activeTopic} = useStore()
+    const {habits, activeTopic} = useApp()
     const tc = TOPICS.find(t => t.id === activeTopic)?.color
     const topicHabits = habits.filter(h => h.topic === activeTopic)
     const done = topicHabits.filter(h => h.completedDates.includes(todayStr)).length
