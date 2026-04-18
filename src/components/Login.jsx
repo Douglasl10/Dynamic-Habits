@@ -8,7 +8,8 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
 
-  const hanleEmail = async () => {
+  // ✅ Corrigido: era "hanleEmail" (typo), agora "handleEmail"
+  const handleEmail = async () => {
     if (!email || !password) return;
     setLoading(true);
     setMessage(null);
@@ -24,7 +25,7 @@ export default function Login() {
     } else if (isSignUp) {
       setMessage({
         type: "success",
-        text: "Confirme seu email para continuar",
+        text: "Confirme seu email para continuar!",
       });
     }
   };
@@ -41,23 +42,28 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-[#080808] flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
+
+        {/* Logo */}
         <div className="text-center mb-10">
-          <span className="font-['Bebas_Neue] text-5xl text-white tracking-widest">
+          {/* ✅ Corrigido: aspas fechadas corretamente em Bebas_Neue' */}
+          <span className="font-['Bebas_Neue'] text-5xl text-white tracking-widest">
             DYNAMIC
           </span>
           <span className="font-['Bebas_Neue'] text-5xl text-[#ff6b35] tracking-widest">
             HABITS
           </span>
           <p className="text-[#333] text-xs font-mono mt-2 tracking-widest">
-            SEUS HABITOS. QUALQUER DISPONIVEL.
+            SEUS HÁBITOS. QUALQUER DISPOSITIVO.
           </p>
         </div>
 
+        {/* Card */}
         <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-2xl p-6">
           <h2 className="text-[#888] text-sm font-mono tracking-widest mb-6 text-center">
             {isSignUp ? "CRIAR CONTA" : "ENTRAR"}
           </h2>
 
+          {/* Botão Google */}
           <button
             onClick={handleGoogle}
             className="w-full flex items-center justify-center gap-3 bg-white text-black font-semibold text-sm py-3 rounded-xl mb-4 hover:bg-gray-100 transition-colors"
@@ -83,35 +89,38 @@ export default function Login() {
             Continuar com Google
           </button>
 
+          {/* Divisor */}
           <div className="flex items-center gap-3 mb-4">
             <div className="flex-1 h-px bg-[#1e1e1e]" />
             <span className="text-[#333] text-xs font-mono">OU</span>
             <div className="flex-1 h-px bg-[#1e1e1e]" />
           </div>
 
+          {/* Campos */}
           <div className="flex flex-col gap-3 mb-4">
             <input
               type="email"
               placeholder="seu@email.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="bg-[#111] border border-[#222] rounded-xl px-4 py-3 text-sm text-[#ccc] outline-none focus:border-[#333] transition-colors placeholder:text-[#333]"
+              className="bg-[#111] border border-[#222] rounded-xl px-4 py-3 text-sm text-[#ccc] outline-none focus:border-[#444] transition-colors placeholder:text-[#333]"
             />
             <input
               type="password"
               placeholder="Senha"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && hanleEmail()}
-              className="bg-[#111] border border-[#222] rounded-xl px-4 py-3 text-sm text-[#ccc] outline-none focus:border-[#333] transition-colors placeholder:text-[#333]"
+              onKeyDown={(e) => e.key === "Enter" && handleEmail()}
+              className="bg-[#111] border border-[#222] rounded-xl px-4 py-3 text-sm text-[#ccc] outline-none focus:border-[#444] transition-colors placeholder:text-[#333]"
             />
           </div>
 
+          {/* Mensagem erro/sucesso */}
           {message && (
             <div
               className={`text-xs font-mono px-3 py-2 rounded-lg mb-4 ${
                 message.type === "error"
-                  ? "bg-red-500/10 text-red-400 border border-red-500/10"
+                  ? "bg-red-500/10 text-red-400 border border-red-500/20"
                   : "bg-green-500/10 text-green-400 border border-green-500/20"
               }`}
             >
@@ -119,8 +128,9 @@ export default function Login() {
             </div>
           )}
 
+          {/* Botão entrar/criar */}
           <button
-            onClick={hanleEmail}
+            onClick={handleEmail}
             disabled={loading}
             className="w-full py-3 rounded-xl text-sm font-bold text-black transition-opacity hover:opacity-80 disabled:opacity-40"
             style={{ background: "#ff6b35" }}
@@ -128,6 +138,7 @@ export default function Login() {
             {loading ? "Aguarde..." : isSignUp ? "Criar conta" : "Entrar"}
           </button>
 
+          {/* Alternar modo */}
           <button
             onClick={() => {
               setIsSignUp((o) => !o);
@@ -135,7 +146,7 @@ export default function Login() {
             }}
             className="w-full mt-4 text-xs text-[#333] hover:text-[#555] transition-colors font-mono"
           >
-            {isSignUp ? "Ja tem conta? Entrar" : "Não tem conta? Criar agora"}
+            {isSignUp ? "Já tem conta? Entrar" : "Não tem conta? Criar agora"}
           </button>
         </div>
       </div>
