@@ -8,9 +8,9 @@ export function AppProvider({userId, children}) {
     const habitsData = useHabits(userId)
 
     return (
-        <Appcontext.Provider value={{activeTopic, setActiveTopic, ...habitsData}}>
+        <AppContext.Provider value={{activeTopic, setActiveTopic, ...habitsData}}>
             {children}
-        </Appcontext.Provider>
+        </AppContext.Provider>
     )
 }
 
