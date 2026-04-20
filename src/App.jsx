@@ -7,10 +7,10 @@ import { supabase } from './lib/supabase'
 import Sidebar from './components/Sidebar'
 
 
-import Dashboard from './pages/Dashboard'
-import Calendar  from './pages/Calendar'
-import Notes     from './pages/Notes'
-import Login     from './pages/Login'
+import Dashboard from './components/Dashboard'
+import Calendar  from './components/Calendar'
+import Notes     from './components/Notes'
+import Login     from './components/Login'
 
 const PAGE_LABELS = {
   '/':         'PROGRESSO DO DIA',
