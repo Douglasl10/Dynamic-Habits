@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { useHabits } from "../hooks/useHabits";
 
-const Appcontext = createContext(null)
+const AppContext = createContext(null)
 
 export function AppProvider({userId, children}) {
     const [activeTopic, setActiveTopic] = useState('treino')
@@ -14,4 +14,4 @@ export function AppProvider({userId, children}) {
     )
 }
 
-export const useApp = () => useContext(Appcontext)
+export const useApp = () => useContext(AppContext)

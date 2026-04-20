@@ -8,7 +8,7 @@ export default function NoteCard({note}) {
     const todayStr = new Date().toISOString().split('T')[0]
 
     return (
-        <div className="rounded-xl p-4 mb-2.5 hover:-translate-y-0.5 transition-all" style={{background: "#d0d0d", borderLeft: `3px solid ${tc}`}}>
+        <div className="rounded-xl p-4 mb-2.5 hover:-translate-y-0.5 transition-all" style={{background: "#d0d0d0d", borderLeft: `3px solid ${tc}`}}>
             <div className="flex justify-between items-center mb-2.5">
                 <span className="text-[10px] font-mono" style={{color: tc}}>
                     {note.date === todayStr ? "HOJE" : note.date}

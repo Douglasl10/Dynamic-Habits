@@ -10,21 +10,21 @@ export default function Sidebar({ onClose }) {
 
   return (
     <aside className="w-56 h-full min-h-screen bg-[#090909] border-r border-[#141414] flex flex-col py-6 overflow-y-auto">
+
     
       <div className="px-5 pb-5 border-b border-[#141414] mb-5 flex items-center justify-between">
         <div>
           <span className="font-['Bebas_Neue'] text-3xl text-white tracking-widest">
-            HABIT
+            DYNAMIC
           </span>
           <span
             className="font-['Bebas_Neue'] text-3xl tracking-widest transition-colors duration-300"
             style={{ color: tc }}
           >
-            OS
+            HABITS
           </span>
         </div>
 
-       
         <button
           onClick={onClose}
           className="md:hidden w-8 h-8 flex items-center justify-center rounded-lg bg-[#141414] border border-[#1e1e1e] text-[#444] hover:text-[#888] transition-colors text-sm"
@@ -34,12 +34,12 @@ export default function Sidebar({ onClose }) {
         </button>
       </div>
 
-     
+    
       <nav className="flex flex-col gap-1 px-3 mb-5">
         {[
-          { to: "/", icon: "◈", label: "Dashboard" },
+          { to: "/",         icon: "◈", label: "Dashboard"  },
           { to: "/calendar", icon: "◻", label: "Calendário" },
-          { to: "/notes", icon: "◉", label: "Anotações" },
+          { to: "/notes",    icon: "◉", label: "Anotações"  },
         ].map((item) => (
           <NavLink
             key={item.to}
@@ -47,10 +47,9 @@ export default function Sidebar({ onClose }) {
             end
             className={({ isActive }) =>
               `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all
-               ${
-                 isActive
-                   ? "bg-white/5 border-l-2"
-                   : "text-[#444] border-l-2 border-transparent hover:text-[#666]"
+               ${isActive
+                 ? "bg-white/5 border-l-2"
+                 : "text-[#444] border-l-2 border-transparent hover:text-[#666]"
                }`
             }
             style={({ isActive }) =>
@@ -65,16 +64,18 @@ export default function Sidebar({ onClose }) {
 
       <div className="h-px bg-[#141414] mx-4 mb-4" />
 
-
+     
       <div className="flex flex-col gap-1.5 px-3 flex-1 overflow-y-auto">
         <p className="text-[10px] text-[#252525] tracking-[0.2em] font-mono px-1 mb-2">
           CATEGORIAS
         </p>
         {TOPICS.map((t) => {
-          const done = habits.filter(
-            (h) => h.topic === t.id && h.completedDates.includes(todayStr),
-          ).length;
-          const total = habits.filter((h) => h.topic === t.id).length;
+          const topicHabits = habits.filter((h) => h.topic === t.id)
+          const total = topicHabits.length
+
+          
+          const done = topicHabits.filter((h) => isCompleted(h.id, todayStr)).length
+
           return (
             <button
               key={t.id}
@@ -96,11 +97,11 @@ export default function Sidebar({ onClose }) {
                 </span>
               )}
             </button>
-          );
+          )
         })}
       </div>
 
-
+    
       <div className="px-5 pt-4 border-t border-[#141414] mt-3 flex flex-col gap-3">
         <p className="text-[10px] text-[#222] font-mono leading-relaxed">
           {new Date()
