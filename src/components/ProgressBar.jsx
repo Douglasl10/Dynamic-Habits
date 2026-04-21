@@ -1,7 +1,7 @@
 import { useApp } from "../context/AppContext"
 import { TOPICS } from "../data/topics"
 
-const todayStr = new Date().toISOString().split('T')[0]
+const todayStr = new Date().toLocaleDateString('en-CA')
 
 export default function ProgressBar() {
   const { habits, activeTopic, isCompleted } = useApp()

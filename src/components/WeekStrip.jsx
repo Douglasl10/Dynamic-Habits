@@ -2,7 +2,7 @@ import { useApp } from "../context/AppContext"
 import { DAYS_PT, TOPICS } from "../data/topics"
 
 const today = new Date()
-const todayStr = today.toISOString().split('T')[0]
+const todayStr = today.toLocaleDateString('en-CA')
 
 function getWeekDates() {
   const start = new Date(today)
@@ -28,7 +28,6 @@ export default function WeekStrip() {
         const d = new Date(date)
         const isToday = date === todayStr
         const isFuture = d > today
-
         
         const pct = topicHabits.length
           ? topicHabits.filter(h => isCompleted(h.id, date)).length / topicHabits.length

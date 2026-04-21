@@ -5,7 +5,7 @@ import { TOPICS } from "../data/topics";
 export default function NoteCard({note}) {
     const {removeNote, activeTopic} = useApp()
     const tc = TOPICS.find(t => t.id === activeTopic)?.color
-    const todayStr = new Date().toISOString().split('T')[0]
+    const todayStr = new Date().toLocaleDateString('en-CA') 
 
     return (
         <div className="rounded-xl p-4 mb-2.5 hover:-translate-y-0.5 transition-all" style={{background: "#d0d0d0d", borderLeft: `3px solid ${tc}`}}>

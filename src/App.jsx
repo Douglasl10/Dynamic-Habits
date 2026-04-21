@@ -105,7 +105,7 @@ function AppContent({ user }) {
             </p>
           </div>
 
-          {/* Avatar */}
+          
           <div className="flex items-center gap-2 mt-1">
             <div className="w-7 h-7 rounded-full bg-[#1a1a1a] border border-[#252525] flex items-center justify-center overflow-hidden">
               {user.user_metadata?.avatar_url

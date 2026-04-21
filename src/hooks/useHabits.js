@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react"
 import { supabase } from "../lib/supabase"
 
 
-const todayStr = new Date().toISOString().split('T')[0]
+const todayStr = new Date().toLocaleDateString('en-CA')
 
 export function useHabits(userId) {
   const [habits,      setHabits]      = useState([])
@@ -57,8 +57,12 @@ export function useHabits(userId) {
         .eq('date', todayStr)
     } else {
       await supabase.from('habit_completions')
-        .insert({ habit_id: habit.id, user_id: userId, date: todayStr })
-    }
+        .upsert({
+          habit_id: habit.id, user_id: userId, date: todayStr
+        }, {
+          onConflict: 'habit_id, date', ignoreDuplicates: true
+        })
+    } 
 
     await supabase.from('habits')
       .update({ streak: newStreak })

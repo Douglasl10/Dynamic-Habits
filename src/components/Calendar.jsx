@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useApp } from "../context/AppContext"
 import { DAYS_PT, MONTHS_PT, TOPICS } from "../data/topics"
 
-const todayStr = new Date().toISOString().split('T')[0]
+const todayStr = new Date().toLocaleDateString('en-CA') // YYYY-MM-DD format
 
 export default function Calendar() {
   const { habits, activeTopic, completionsForHabit } = useApp()

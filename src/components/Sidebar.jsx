@@ -5,7 +5,7 @@ import { useApp } from "../context/AppContext";
 
 export default function Sidebar({ onClose }) {
   const { activeTopic, setActiveTopic, habits, isCompleted } = useApp();
-  const todayStr = new Date().toISOString().split("T")[0];
+  const todayStr = new Date().toLocaleDateString('en-CA');
   const tc = TOPICS.find((t) => t.id === activeTopic)?.color;
 
   return (

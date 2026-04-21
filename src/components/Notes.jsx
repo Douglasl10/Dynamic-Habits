@@ -4,7 +4,7 @@ import { TOPICS } from "../data/topics"
 export default function NoteCard({ note }) {
   const { removeNote, activeTopic } = useApp()
   const tc       = TOPICS.find(t => t.id === activeTopic)?.color
-  const todayStr = new Date().toISOString().split('T')[0]
+  const todayStr = new Date().toLocaleDateString('en-CA')
 
   return (
     <div
