@@ -2,7 +2,6 @@ import { useState } from "react"
 import { useApp } from "../context/AppContext"
 import { DAYS_PT, MONTHS_PT, TOPICS } from "../data/topics"
 
-// Fix: era ".date()" em todo arquivo, correto é "new Date()"
 const todayStr = new Date().toLocaleDateString('en-CA')
 
 export default function Calendar() {
@@ -25,12 +24,20 @@ export default function Calendar() {
       ? `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
       : null
 
+  // Só conta hábitos que já existiam naquele dia
   const pctForDay = (ds) => {
     if (!ds || !topicHabits.length) return 0
-    const done = topicHabits.filter(h =>
+    const habitsExistingOnDay = topicHabits.filter(h => {
+      const createdAt = h.created_at
+        ? new Date(h.created_at).toLocaleDateString('en-CA')
+        : ds
+      return createdAt <= ds
+    })
+    if (!habitsExistingOnDay.length) return 0
+    const done = habitsExistingOnDay.filter(h =>
       completionsForHabit(h.id).includes(ds)
     ).length
-    return done / topicHabits.length
+    return done / habitsExistingOnDay.length
   }
 
   return (
@@ -73,7 +80,7 @@ export default function Calendar() {
                 background: !day
                   ? 'transparent'
                   : pct > 0
-                    ? tc + Math.round(pct * 50 + 8).toString(16).padStart(2, '0')
+                    ? tc + Math.round(pct * 50 + 8).toString(16).padStart(2, '00')
                     : '#0d0d0d',
                 border:  isToday ? `1px solid ${tc}` : '1px solid #151515',
                 opacity: day ? 1 : 0,
@@ -122,11 +129,19 @@ export default function Calendar() {
 
         {topicHabits.map(h => {
           const completions = completionsForHabit(h.id)
+
+          // Data de criação do hábito
+          const habitCreatedAt = h.created_at
+            ? new Date(h.created_at).toLocaleDateString('en-CA')
+            : `${year}-${String(month + 1).padStart(2, '0')}-01`
+
+          // Só conta dias a partir da criação do hábito
           const mDays = Array.from({ length: daysInMonth }, (_, i) =>
             `${year}-${String(month + 1).padStart(2, '0')}-${String(i + 1).padStart(2, '0')}`
-          )
+          ).filter(d => d >= habitCreatedAt)
+
           const cnt = mDays.filter(d => completions.includes(d)).length
-          const pct = Math.round(cnt / daysInMonth * 100)
+          const pct = mDays.length ? Math.round(cnt / mDays.length * 100) : 0
 
           return (
             <div key={h.id} className="flex items-center gap-4 py-2.5 border-b border-[#0f0f0f]">
