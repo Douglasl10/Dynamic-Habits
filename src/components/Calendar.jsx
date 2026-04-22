@@ -34,7 +34,7 @@ export default function Calendar() {
   }
 
   return (
-    <div>
+    <div className="max-w-3xl">
       {/* Navegação mês */}
       <div className="flex items-center justify-between mb-6">
         <button
