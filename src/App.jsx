@@ -9,7 +9,7 @@ import Sidebar from './components/Sidebar'
 
 import Dashboard from './components/Dashboard'
 import Calendar  from './components/Calendar'
-import Notes     from './components/Notes'
+import Notes from './components/Notes'
 import Login     from './components/Login'
 
 const PAGE_LABELS = {
