@@ -116,7 +116,7 @@ function AppContent({ user }) {
           </div>
         </header>
 
-        <div className="flex-1 px-5 pt-5 pb-8 md:px-8 md:pt-6 max-w-2xl w-full">
+        <div className="flex-1 px-5 pt-5 pb-8 md:px-8 md:pt-6 w-full">
           <Routes>
             <Route path="/"         element={<Dashboard />} />
             <Route path="/calendar" element={<Calendar />} />
