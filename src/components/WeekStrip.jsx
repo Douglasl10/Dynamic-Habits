@@ -1,17 +1,30 @@
 import { useApp } from "../context/AppContext"
 import { DAYS_PT, TOPICS } from "../data/topics"
 
-const today = new Date()
-const todayStr = today.toLocaleDateString('en-CA')
+const todayStr = new Date().toLocaleDateString('en-CA')
 
 function getWeekDates() {
-  const start = new Date(today)
-  start.setDate(today.getDate() - today.getDay())
-  return Array.from({ length: 7 }, (_, i) => {
-    const d = new Date(start)
-    d.setDate(start.getDate() + i)
-    return d.toLocaleDateString('en-CA')
-  })
+  const result = []
+  // Pega o domingo da semana atual no fuso local
+  const now = new Date()
+  const dayOfWeek = now.getDay()
+
+  for (let i = 0; i < 7; i++) {
+    const d = new Date()
+    d.setDate(now.getDate() - dayOfWeek + i)
+    result.push(d.toLocaleDateString('en-CA'))
+  }
+  return result
+}
+
+// Extrai dia, mês e dia da semana de uma string 'YYYY-MM-DD' sem converter timezone
+function parseDateStr(dateStr) {
+  const [year, month, day] = dateStr.split('-').map(Number)
+  const d = new Date(year, month - 1, day) // mês é 0-indexed, sem UTC
+  return {
+    day,
+    dayOfWeek: d.getDay(),
+  }
 }
 
 export default function WeekStrip() {
@@ -23,8 +36,8 @@ export default function WeekStrip() {
   return (
     <div className="flex gap-2 bg-[#0a0a0a] border border-[#141414] rounded-2xl p-4 mb-5">
       {weekDates.map((date, i) => {
-        const d       = new Date(date)
-        const isToday = date === todayStr
+        const { day, dayOfWeek } = parseDateStr(date)
+        const isToday  = date === todayStr
         const isFuture = date > todayStr
 
         // Só conta hábitos que já existiam naquele dia
@@ -46,7 +59,7 @@ export default function WeekStrip() {
             style={{ opacity: isFuture ? 0.25 : 1 }}
           >
             <span className="text-[9px] font-mono text-[#2e2e2e]">
-              {DAYS_PT[d.getDay()]}
+              {DAYS_PT[dayOfWeek]}
             </span>
 
             <div
@@ -61,7 +74,7 @@ export default function WeekStrip() {
                 className="relative text-xs"
                 style={{ color: isToday ? tc : '#444', fontFamily: 'Bebas Neue' }}
               >
-                {d.getDate()}
+                {day}
               </span>
             </div>
 
