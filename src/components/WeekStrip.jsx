@@ -6,31 +6,37 @@ const todayStr = today.toLocaleDateString('en-CA')
 
 function getWeekDates() {
   const start = new Date(today)
-
   start.setDate(today.getDate() - today.getDay())
-
   return Array.from({ length: 7 }, (_, i) => {
     const d = new Date(start)
     d.setDate(start.getDate() + i)
-    return d.toISOString().split('T')[0]
+    return d.toLocaleDateString('en-CA')
   })
 }
 
 export default function WeekStrip() {
   const { habits, activeTopic, isCompleted } = useApp()
-  const tc = TOPICS.find(t => t.id === activeTopic)?.color
+  const tc          = TOPICS.find(t => t.id === activeTopic)?.color
   const topicHabits = habits.filter(h => h.topic === activeTopic)
-  const weekDates = getWeekDates()
+  const weekDates   = getWeekDates()
 
   return (
     <div className="flex gap-2 bg-[#0a0a0a] border border-[#141414] rounded-2xl p-4 mb-5">
       {weekDates.map((date, i) => {
-        const d = new Date(date)
+        const d       = new Date(date)
         const isToday = date === todayStr
-        const isFuture = d > today
-        
-        const pct = topicHabits.length
-          ? topicHabits.filter(h => isCompleted(h.id, date)).length / topicHabits.length
+        const isFuture = date > todayStr
+
+        // Só conta hábitos que já existiam naquele dia
+        const habitsOnDay = topicHabits.filter(h => {
+          const createdAt = h.created_at
+            ? new Date(h.created_at).toLocaleDateString('en-CA')
+            : date
+          return createdAt <= date
+        })
+
+        const pct = habitsOnDay.length
+          ? habitsOnDay.filter(h => isCompleted(h.id, date)).length / habitsOnDay.length
           : 0
 
         return (
